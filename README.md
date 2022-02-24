@@ -5,6 +5,7 @@
 </p>
 <h1 align="center">:pushpin: Sobre o desafio</h1>
 Nesse desafio, foi criada uma aplicação de listagem e cadastro de usuários.
+
 ## :memo: Licença
 
 Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](https://github.com/git/git-scm.com/blob/master/MIT-LICENSE.txt) para mais detalhes.
