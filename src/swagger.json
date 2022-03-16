@@ -1,0 +1,275 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": " Solid challenge ",
+    "description": "This is an challenge nodejs",
+    "version": "1.0.0",
+    "contact": {
+      "email": "dayanebismark18@gmail.com"
+    }
+  },
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Create a users",
+         "description": "Create a new users",
+         "requestBody": {
+           "content": {
+             "application/json": {
+               "schema": {
+                 "type": "object",
+                 "properties": {
+                   "name": {
+                     "type": "string"
+                   },
+                    "email": {
+                      "type": "string"
+                    }
+                 },
+                 "example": {
+                   "name": "Users name sample",
+                   "email": "Users email sample"
+                 }
+               }
+             }
+           }
+         },
+         "responses": {
+           "201": {
+             "description": "Created user",
+             "content": {
+               "application/json": {
+                 "schema": {
+                   "type": "object",
+                   "example": {
+                      "id": "b056d361-0bf3-4d5b-b3fe-59989894cb60",
+                      "admin": false,
+                      "created_at": "2022-03-16T12:02:58.594Z",
+                      "updated_at": "2022-03-16T12:02:58.594Z",
+                      "name": "Dayane",
+                      "email": "dayanebismark18@gmail.com"
+                   }
+                 }
+               }
+             }  
+           },
+           "400": {
+             "description": "User Already exists!",
+             "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": "User Already exists!"
+                  }
+                }
+              }
+            }
+           }
+         }
+      },
+      "get": {
+        "tags": ["Users"],
+        "summary": "List Users",
+         "description": "list all users",
+         "parameters": [
+           {
+           "in": "header",
+           "name": "user_id" ,
+           "description": "User id",
+           "required": true,
+           "type": "string"
+         }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succssesfully done",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "admin": {
+                        "type": "boolean"
+                      },
+                      "created_at": {
+                        "type": "Date"
+                      },
+                      "updated_at": {
+                        "type": "Date"
+                      }
+                    }
+                  },
+                  "example": [
+                    {
+                      "id": "9481cddc-2f5f-4823-9ad4-fbcb4247a4b0",
+                      "admin": false,
+                      "created_at": "2022-03-16T14:33:16.977Z",
+                      "updated_at": "2022-03-16T14:33:16.977Z",
+                      "name": "user01",
+                      "email": "user01@example.com"
+                    },
+                    {
+                      "id": "5d210c1d-4627-4e6f-b2a5-c70b107bacee",
+                      "admin": false,
+                      "created_at": "2022-03-16T14:33:47.727Z",
+                      "updated_at": "2022-03-16T14:33:47.727Z",
+                      "name": "user02",
+                      "email": "user02@example.com"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User not found!",
+            "content": {
+             "application/json": {
+               "schema": {
+                 "type": "object",
+                 "example": {
+                  "error": "User Not Found"
+                 }
+               }
+             }
+           }
+          }
+        }
+      }
+    },
+    "/{user_id}": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Returns a specific user",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "description": "User id",
+            "required": true,
+            "type": "string"
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Succssesfully done",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "created_at": {
+                      "type": "Date"
+                    },
+                    "updated_at": {
+                      "type": "Date"
+                    }
+                  }
+                },
+                "example": {
+                  "id": "9481cddc-2f5f-4823-9ad4-fbcb4247a4b0",
+                  "admin": false,
+                  "created_at": "2022-03-16T14:33:16.977Z",
+                  "updated_at": "2022-03-16T14:33:16.977Z",
+                  "name": "user01",
+                  "email": "user01@example.com"
+                }
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "User not found!",
+          "content": {
+           "application/json": {
+             "schema": {
+               "type": "object",
+               "example": {
+                "error": "User Not Found"
+               }
+             }
+           }
+         }
+        }
+
+      }
+      }
+    },
+    "/{user_id}/admin": {
+      "patch": {
+        "tags": ["Users"],
+        "summary": "Make a user admin",
+        "description": "Make a user admin",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "description": "User id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operation performed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "id": "9481cddc-2f5f-4823-9ad4-fbcb4247a4b0",
+                    "admin": false,
+                    "created_at": "2022-03-16T14:33:16.977Z",
+                    "updated_at": "2022-03-16T14:33:16.977Z",
+                    "name": "user01",
+                    "email": "user01@example.com"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": "User Not Found"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
